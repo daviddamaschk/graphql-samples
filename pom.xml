@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>graphql</groupId>
+    <artifactId>graphqlexample</artifactId>
+    <packaging>war</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>A custom project using myfaces</name>
+    <url>http://www.myorganization.org</url>
+
+    <build>
+        <finalName>graphqlexample</finalName>
+    </build>
+
+    <properties>
+    <!-- .............................................................
+        Encoding-Einstellungen
+    .............................................................. -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!-- .............................................................
+        Compiler-Einstellungen
+    .............................................................. -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    </properties>
+
+    <!-- Profile to run jetty, so the tomcat jars are included in the bundle. They are not included by default -->
+    <profiles>
+        <profile>
+            <id>jettyConfig</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>maven-jetty-plugin</artifactId>
+                        <configuration>
+                            <scanIntervalSeconds>10</scanIntervalSeconds>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+
+            <pluginRepositories>
+                <!-- Repository to get the jetty plugin -->
+                <pluginRepository>
+                    <id>mortbay-repo</id>
+                    <name>mortbay-repo</name>
+                    <url>http://www.mortbay.org/maven2/snapshot</url>
+                </pluginRepository>
+            </pluginRepositories>
+
+        </profile>
+    </profiles>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>apache-maven-snapshots</id>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+        </repository>
+        <repository>
+            <id>java.net</id>
+            <url>http://download.java.net/maven/1</url>
+            <layout>legacy</layout>
+        </repository>
+    </repositories>
+
+    <!-- Project dependencies -->
+    <dependencies>
+
+
+        <!-- .............................................................
+              Json-Parser
+        .............................................................. -->
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
+        </dependency>
+
+
+        <!-- .............................................................
+              Graphql-Spqr für Annotation-Support und Graphlql
+              https://github.com/leangen/graphql-spqr
+        .............................................................. -->
+
+        <dependency>
+            <groupId>io.leangen.graphql</groupId>
+            <artifactId>spqr</artifactId>
+            <version>0.9.3</version>
+        </dependency>
+
+        <!-- .............................................................
+           slf4j-Api
+       .............................................................. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+
+        <!-- .............................................................
+               slf4j for lov4j
+        .............................................................. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
+        <!-- .............................................................
+               log4j
+        .............................................................. -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- .............................................................
+            GSON API für JSON-Formattierungen und JSON-Operationen
+        .............................................................. -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>
