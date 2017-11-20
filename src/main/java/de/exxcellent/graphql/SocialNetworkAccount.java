@@ -1,7 +1,7 @@
 package de.exxcellent.graphql;
 
 /**
- * social account
+ * Social account Data class
  */
 public class SocialNetworkAccount {
 

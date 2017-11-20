@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Service für User-Abfragen.
+ * Service for user queries.
  */
 public class UserService {
 

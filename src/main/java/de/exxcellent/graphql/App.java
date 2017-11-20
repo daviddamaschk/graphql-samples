@@ -14,14 +14,14 @@ import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 /**
- * Klasse zum Ausführen von GraphQL mit Annotationen. https://github.com/leangen/graphql-spqr
+ * Root-Class for running graphql examples with graphql-spqr annotations. https://github.com/leangen/graphql-spqr
  */
 public class App {
 
     public static void main(String[] args) throws IOException {
 
         /**
-         * Servies an GraphQL registrieren.
+         * Register services.
          */
         UserService userService = new UserService(); //instantiate the service (or inject by Spring or another framework)
         SocialNetworkService socialNetworkService = new SocialNetworkService(); //instantiate the service (or inject by Spring or another framework)
@@ -33,7 +33,7 @@ public class App {
 
 
         /**
-         * Einfache GraphQL-Abfrage:
+         * simple graphql-query. Get user with id 123.
          */
         ExecutionResult result = graphQL.execute("{ getUser (id: 123) { name {firstName, lastName}, regDate}}");
         // Kommentare in Query möglich, Formattierung anpassbar (Kommas sind bspw. unnötig).
@@ -41,7 +41,7 @@ public class App {
         toJson(result.getData());
 
         /**
-         * Einfache GraphQL-Abfrage mit Listen.
+         * simple graphql-query with lists.
          */
         ExecutionResult userlist = graphQL.execute(
                 "{ userlist {name {firstName}, id}}");
@@ -50,7 +50,7 @@ public class App {
 
 
         /**
-         * Ineinander verschachtelte Abfrage, um einen Nutzer mit seinen Sozialen Accounts zu erhalten.
+         * more complex query. Get a user and his/her social accounts.
          */
         ExecutionResult userWithNetworkAccounts = graphQL.execute(
                 "{ getUser (id: 123) {name {firstName}, getSocialNetworkAccounts{socialnetworkAccount} }}");
@@ -58,7 +58,7 @@ public class App {
         //toJson(userWithNetworkAccounts.getData());
 
         /**
-         * Aliases, um identische Service-Methoden mehrfach aufzurufen.
+         * aliases for calling multiple times the same service.
          */
         ExecutionResult aliases = graphQL.execute("{ " +
                 "userServiceAliasOne: getUser (id: 123) { name {firstName, lastName}, regDate} " +
@@ -67,18 +67,18 @@ public class App {
         //toJson(aliases.getData());
 
         /**
-         * Mit Fragmenten können wierkehrende Querybestandteile mehrfach verwendet werden.
+         *  fragments let you construct sets of fields, and then include them in queries where you need to.
          */
         ExecutionResult fragments = graphQL.execute("{ " +
-                "user1: getUser (id: 123) { ...fragmentName, regDate} " +
-                "user2: getUser (id: 122) { ...fragmentName, regDate}}" +
-                " fragment fragmentName on User { name {firstName, lastName} }");
+                "userServiceAliasOne: getUser (id: 123) { ...fragmentUserName, regDate} " +
+                "userServiceAliasTwo: getUser (id: 122) { ...fragmentUserName, regDate}}" +
+                " fragment fragmentUserName on User { name {firstName, lastName} }");
         // todo uncomment to see result
         //toJson(fragments.getData());
 
 
         /**
-         * Introspection liefert Informationen zu den verfügbaren Services, Rückgabewerten etc.
+         * introspection delivers information about services, fields etc.
          */
         String resultPath = "introspectionquery.txt";
         ClassLoader classLoader = new App().getClass().getClassLoader();
@@ -88,7 +88,7 @@ public class App {
         // todo uncomment to see result
         //toJson(fullintrospection.getData());
 
-        // Schema-Informationen aus der Introspection
+        // schema-informations.
         //ExecutionResult introspection = graphQL.execute("{ __schema {types {name} } }");
 
         //toJson(introspection.getData());

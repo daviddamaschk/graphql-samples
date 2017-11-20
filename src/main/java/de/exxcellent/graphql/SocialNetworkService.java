@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service für social accounts
+ * Service for social accounts queries
  */
 public class SocialNetworkService {
 

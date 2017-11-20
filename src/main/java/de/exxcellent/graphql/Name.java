@@ -1,7 +1,7 @@
 package de.exxcellent.graphql;
 
 /**
- * Name-Klasse
+ * Name class.
  */
 public class Name {
 

@@ -5,7 +5,7 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.Date;
 
 /**
- * User Data.
+ * Service for user data.
  */
 public class User {
 
