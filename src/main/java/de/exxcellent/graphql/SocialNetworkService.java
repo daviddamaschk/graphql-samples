@@ -7,10 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Service for social accounts queries
+ * Service for social accounts queries.
  */
 public class SocialNetworkService {
 
+    /**
+     * Retrieves social accounts from a given user.
+     *
+     * @param user User
+     * @return List of social accounts
+     */
     @GraphQLQuery(name = "getSocialNetworkAccounts")
     public List<SocialNetworkAccount> getSocialNetworkAccounts(@GraphQLContext User user) {
 

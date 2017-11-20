@@ -13,9 +13,13 @@ public class User {
     private Integer id;
     private Date registrationDate;
 
-    public User() {
-    }
-
+    /**
+     * Constructor.
+     *
+     * @param name             name of the user
+     * @param id               id of the user
+     * @param registrationDate registration date
+     */
     public User(Name name, Integer id, Date registrationDate) {
         this.name = name;
         this.id = id;
@@ -36,6 +40,11 @@ public class User {
         this.name = name;
     }
 
+    /**
+     * Getter.
+     *
+     * @return id
+     */
     @GraphQLQuery(name = "id", description = "A person's id")
     public Integer getId() {
         return id;
@@ -66,10 +75,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", id=" + id +
-                ", registrationDate=" + registrationDate +
-                '}';
+        return "User{"
+                + "name='" + name + '\''
+                + ", id=" + id
+                + ", registrationDate=" + registrationDate
+                + '}';
     }
 }

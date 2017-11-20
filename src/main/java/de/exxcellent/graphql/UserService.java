@@ -12,11 +12,21 @@ import java.util.List;
  */
 public class UserService {
 
+    /**
+     * get user by id.
+     *
+     * @param id id
+     * @return User
+     */
     @GraphQLQuery(name = "getUser")
     public User getById(@GraphQLArgument(name = "id") Integer id) {
         return new User(new Name("David", "D"), 123, new Date());
     }
 
+    /**
+     * get all users.
+     * @return List of users
+     */
     @GraphQLQuery(name = "userlist")
     public List<User> getUserlist() {
         User david = new User(new Name("David", "D"), 123, new Date());

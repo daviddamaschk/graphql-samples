@@ -38,7 +38,7 @@ public class App {
         ExecutionResult result = graphQL.execute("{ getUser (id: 123) { name {firstName, lastName}, regDate}}");
         // Kommentare in Query möglich, Formattierung anpassbar (Kommas sind bspw. unnötig).
 
-        toJson(result.getData());
+        printToJson(result.getData());
 
         /**
          * simple graphql-query with lists.
@@ -46,7 +46,7 @@ public class App {
         ExecutionResult userlist = graphQL.execute(
                 "{ userlist {name {firstName}, id}}");
         // todo uncomment to see result
-        //toJson(userlist.getData());
+        //printToJson(userlist.getData());
 
 
         /**
@@ -55,26 +55,26 @@ public class App {
         ExecutionResult userWithNetworkAccounts = graphQL.execute(
                 "{ getUser (id: 123) {name {firstName}, getSocialNetworkAccounts{socialnetworkAccount} }}");
         // todo uncomment to see result
-        //toJson(userWithNetworkAccounts.getData());
+        //printToJson(userWithNetworkAccounts.getData());
 
         /**
          * aliases for calling multiple times the same service.
          */
-        ExecutionResult aliases = graphQL.execute("{ " +
-                "userServiceAliasOne: getUser (id: 123) { name {firstName, lastName}, regDate} " +
-                "userServiceAliasTwo: getUser (id: 122) { name {firstName, lastName}, regDate}}");
+        ExecutionResult aliases = graphQL.execute("{ "
+                + "userServiceAliasOne: getUser (id: 123) { name {firstName, lastName}, regDate} "
+                + "userServiceAliasTwo: getUser (id: 122) { name {firstName, lastName}, regDate}}");
         // todo uncomment to see result
-        //toJson(aliases.getData());
+        //printToJson(aliases.getData());
 
         /**
          *  fragments let you construct sets of fields, and then include them in queries where you need to.
          */
-        ExecutionResult fragments = graphQL.execute("{ " +
-                "userServiceAliasOne: getUser (id: 123) { ...fragmentUserName, regDate} " +
-                "userServiceAliasTwo: getUser (id: 122) { ...fragmentUserName, regDate}}" +
-                " fragment fragmentUserName on User { name {firstName, lastName} }");
+        ExecutionResult fragments = graphQL.execute("{ "
+                + "userServiceAliasOne: getUser (id: 123) { ...fragmentUserName, regDate} "
+                + "userServiceAliasTwo: getUser (id: 122) { ...fragmentUserName, regDate}} "
+                + "fragment fragmentUserName on User { name {firstName, lastName} }");
         // todo uncomment to see result
-        //toJson(fragments.getData());
+        //printToJson(fragments.getData());
 
 
         /**
@@ -86,21 +86,33 @@ public class App {
         String res = read(resourceAsStream);
         ExecutionResult fullintrospection = graphQL.execute(res);
         // todo uncomment to see result
-        //toJson(fullintrospection.getData());
+        //printToJson(fullintrospection.getData());
 
         // schema-informations.
-        //ExecutionResult introspection = graphQL.execute("{ __schema {types {name} } }");
-
-        //toJson(introspection.getData());
+        ExecutionResult introspection = graphQL.execute("{ __schema {types {name} } }");
+        // todo uncomment to see result
+        //printToJson(introspection.getData());
 
     }
 
-    public static void toJson(Object src) {
+    /**
+     * Prints content into readable json.
+     *
+     * @param src content, either String/{@link java.util.LinkedHashMap}
+     */
+    public static void printToJson(Object src) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String formattedString = gson.toJson(src);
         System.out.println(formattedString);
     }
 
+    /**
+     * Reads input from a stream and returns it.
+     *
+     * @param input input
+     * @return String
+     * @throws IOException {@link IOException}
+     */
     public static String read(InputStream input) throws IOException {
         try (BufferedReader buffer = new BufferedReader(new InputStreamReader(input))) {
             return buffer.lines().collect(Collectors.joining("\n"));

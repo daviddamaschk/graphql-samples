@@ -1,12 +1,17 @@
 package de.exxcellent.graphql;
 
 /**
- * Social account Data class
+ * Social account Data class.
  */
 public class SocialNetworkAccount {
 
     private String socialnetworkAccount;
 
+    /**
+     * Constructor
+     *
+     * @param socialnetworkAccount name of social account.
+     */
     public SocialNetworkAccount(String socialnetworkAccount) {
         this.socialnetworkAccount = socialnetworkAccount;
     }

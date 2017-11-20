@@ -5,16 +5,18 @@ package de.exxcellent.graphql;
  */
 public class Name {
 
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
 
+    /**
+     * Constructor.
+     *
+     * @param firstName firstname
+     * @param lastName  lastname
+     */
     public Name(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public Name(String firstName) {
-        this.firstName = firstName;
     }
 
     /**
